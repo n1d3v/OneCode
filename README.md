@@ -11,4 +11,5 @@ OneCode is an OTP manager built using .NET and WinForms.
    - [x] Google Authenticator migration
    - [x] Manually importing using secrets
 - [x] Storing OTP data (Uses an XML format)
+   - [ ] Encryption for OTP data
 - [ ] Modifying OTP data
