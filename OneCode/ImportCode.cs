@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
 using OneCode.Classes;
 using System.IO;
 using ZXing;
