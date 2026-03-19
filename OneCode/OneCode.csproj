@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutOneCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutOneCode.Designer.cs">
+      <DependentUpon>AboutOneCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Base32.cs" />
     <Compile Include="Classes\DataParser.cs" />
     <Compile Include="Classes\DecryptProtoOTP.cs" />
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="CodeWindow.Designer.cs">
       <DependentUpon>CodeWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCode.Designer.cs">
+      <DependentUpon>EditCode.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportCode.cs">
       <SubType>Form</SubType>
@@ -86,8 +98,20 @@
     <Compile Include="UserControls\CodeTemplate.Designer.cs">
       <DependentUpon>CodeTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LoadingThrobber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LoadingThrobber.Designer.cs">
+      <DependentUpon>LoadingThrobber.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutOneCode.resx">
+      <DependentUpon>AboutOneCode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CodeWindow.resx">
       <DependentUpon>CodeWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditCode.resx">
+      <DependentUpon>EditCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportCode.resx">
       <DependentUpon>ImportCode.cs</DependentUpon>
@@ -104,6 +128,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\CodeTemplate.resx">
       <DependentUpon>CodeTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LoadingThrobber.resx">
+      <DependentUpon>LoadingThrobber.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

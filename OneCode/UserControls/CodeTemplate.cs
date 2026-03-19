@@ -9,11 +9,20 @@ namespace OneCode.UserControls
         private Timer timer;
         private string baseSecret;
         private int digitAmount;
-        private int lastSecond = -1; // track step change
+        private int lastSecond = -1;
+
+        private LoadingThrobber codeTimeout;
 
         public CodeTemplate()
         {
             InitializeComponent();
+            
+            // Add our custom pie-like throbber, inspired by Google Authenticator
+            codeTimeout = new LoadingThrobber();
+            codeTimeout.Size = new System.Drawing.Size(19, 19);
+            codeTimeout.Location = new System.Drawing.Point(251, 3);
+            Controls.Add(codeTimeout);
+
             InitializeTimer();
         }
 
@@ -28,7 +37,7 @@ namespace OneCode.UserControls
         private void InitializeTimer()
         {
             timer = new Timer();
-            timer.Interval = 50; // 20 updates per second for smooth bar
+            timer.Interval = 50;
             timer.Tick += (s, e) => UpdateCode();
             timer.Start();
         }
@@ -42,9 +51,7 @@ namespace OneCode.UserControls
             double secondsIntoStep = unixTime % stepDuration;
             double secondsLeft = stepDuration - secondsIntoStep;
 
-            int smoothMax = 3000;
-            codeTimeout.Maximum = smoothMax;
-            codeTimeout.Value = Math.Max(0, Math.Min(smoothMax, (int)((secondsLeft / stepDuration) * smoothMax)));
+            codeTimeout.SetProgress(secondsLeft / stepDuration);
 
             int currentSecond = (int)secondsLeft;
             if (currentSecond != lastSecond)
