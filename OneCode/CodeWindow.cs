@@ -20,16 +20,12 @@ namespace OneCode
         // References for the native menu bar
         [DllImport("user32.dll")]
         public static extern IntPtr CreateMenu();
-
         [DllImport("user32.dll")]
         public static extern IntPtr CreatePopupMenu();
-
         [DllImport("user32.dll")]
         public static extern bool AppendMenu(IntPtr hMenu, uint uFlags, UIntPtr uIDNewItem, string lpNewItem);
-
         [DllImport("user32.dll")]
         public static extern bool SetMenu(IntPtr hWnd, IntPtr hMenu);
-
         [DllImport("user32.dll")]
         public static extern bool DrawMenuBar(IntPtr hWnd);
 
@@ -83,7 +79,7 @@ namespace OneCode
                 {
                     case 1:
                         ImportCode importForm = new ImportCode();
-                        importForm.ShowDialog();
+                        importForm.Show();
                         break;
 
                     case 2:

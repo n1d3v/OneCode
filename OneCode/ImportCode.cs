@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Windows.Forms;
 using OneCode.Classes;
 using System.IO;
+using ZXing;
 
 namespace OneCode
 {
@@ -19,7 +23,7 @@ namespace OneCode
 
             if (string.IsNullOrEmpty(otpData))
             {
-                MessageBox.Show("You have not entered any data into the box, enter some data and then continue.", "OneCode", MessageBoxButtons.OK);
+                MessageBox.Show("You have not entered any data into the box, enter some data and then continue.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -76,6 +80,35 @@ namespace OneCode
 
             string xmlData = DataParser.CreateXml(accounts);
             File.WriteAllText(filePath, xmlData);
+        }
+
+        private void scanQrButton_Click(object sender, EventArgs e)
+        {
+            Bitmap screenshot = CaptureScreen();
+
+            var reader = new BarcodeReader();
+            var result = reader.Decode(screenshot);
+
+            if (result != null)
+            {
+                dataImportBox.Text = result.Text;
+                MessageBox.Show("QR code detected and imported successfully! Please restart the application to view the code.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("No QR code was found on the screen, please put it in view and try scanning the QR code again.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static Bitmap CaptureScreen()
+        {
+            Rectangle bounds = Screen.PrimaryScreen.Bounds;
+            Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height);
+
+            using (Graphics g = Graphics.FromImage(bitmap))
+                g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+
+            return bitmap;
         }
     }
 }

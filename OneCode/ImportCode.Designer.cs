@@ -44,6 +44,9 @@ namespace OneCode
             this.codeNameLabel = new System.Windows.Forms.Label();
             this.codeSecretBox = new System.Windows.Forms.TextBox();
             this.codeSecretLabel = new System.Windows.Forms.Label();
+            this.qrDesc = new System.Windows.Forms.Label();
+            this.qrLabel = new System.Windows.Forms.Label();
+            this.scanQrButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // impLabel
@@ -186,12 +189,47 @@ namespace OneCode
             this.codeSecretLabel.TabIndex = 13;
             this.codeSecretLabel.Text = "Code secret";
             // 
+            // qrDesc
+            // 
+            this.qrDesc.AutoSize = true;
+            this.qrDesc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.qrDesc.Location = new System.Drawing.Point(17, 336);
+            this.qrDesc.Name = "qrDesc";
+            this.qrDesc.Size = new System.Drawing.Size(270, 30);
+            this.qrDesc.TabIndex = 16;
+            this.qrDesc.Text = "You can scan a QR code on display and OneCode \r\nwill scan and import it for you!";
+            // 
+            // qrLabel
+            // 
+            this.qrLabel.AutoSize = true;
+            this.qrLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.qrLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(42)))), ((int)(((byte)(158)))));
+            this.qrLabel.Location = new System.Drawing.Point(16, 313);
+            this.qrLabel.Name = "qrLabel";
+            this.qrLabel.Size = new System.Drawing.Size(193, 21);
+            this.qrLabel.TabIndex = 15;
+            this.qrLabel.Text = "Scan a QR code on display";
+            // 
+            // scanQrButton
+            // 
+            this.scanQrButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanQrButton.Location = new System.Drawing.Point(181, 369);
+            this.scanQrButton.Name = "scanQrButton";
+            this.scanQrButton.Size = new System.Drawing.Size(106, 23);
+            this.scanQrButton.TabIndex = 17;
+            this.scanQrButton.Text = "Scan QR code";
+            this.scanQrButton.UseVisualStyleBackColor = true;
+            this.scanQrButton.Click += new System.EventHandler(this.scanQrButton_Click);
+            // 
             // ImportCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(306, 316);
+            this.ClientSize = new System.Drawing.Size(306, 408);
+            this.Controls.Add(this.scanQrButton);
+            this.Controls.Add(this.qrDesc);
+            this.Controls.Add(this.qrLabel);
             this.Controls.Add(this.codeSecretBox);
             this.Controls.Add(this.codeSecretLabel);
             this.Controls.Add(this.codeNameBox);
@@ -231,5 +269,8 @@ namespace OneCode
         private System.Windows.Forms.Label codeNameLabel;
         private System.Windows.Forms.TextBox codeSecretBox;
         private System.Windows.Forms.Label codeSecretLabel;
+        private System.Windows.Forms.Label qrDesc;
+        private System.Windows.Forms.Label qrLabel;
+        private System.Windows.Forms.Button scanQrButton;
     }
 }
