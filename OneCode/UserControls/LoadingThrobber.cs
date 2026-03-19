@@ -10,7 +10,7 @@ namespace OneCode.UserControls
     {
         private float _progress = 1f;
 
-        private Color _color = Color.FromArgb(0, 110, 230);
+        private Color _color = Color.FromArgb(0, 102, 204);
         private Color _backColorCircle = Color.FromArgb(255, 255, 255);
         private Color _borderColor = Color.DarkGray;
 

@@ -71,7 +71,7 @@ namespace OneCode
             this.accountsPanel.Margin = new System.Windows.Forms.Padding(0);
             this.accountsPanel.Name = "accountsPanel";
             this.accountsPanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.accountsPanel.Size = new System.Drawing.Size(276, 347);
+            this.accountsPanel.Size = new System.Drawing.Size(276, 25);
             this.accountsPanel.TabIndex = 4;
             // 
             // codeContextStrip
@@ -124,7 +124,7 @@ namespace OneCode
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(312, 423);
+            this.ClientSize = new System.Drawing.Size(312, 105);
             this.Controls.Add(this.accountsPanel);
             this.Controls.Add(this.codeCount);
             this.Controls.Add(this.welcomeLabel);
@@ -132,8 +132,9 @@ namespace OneCode
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "CodeWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OneCode";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CodeWindow_FormClosing);
+            this.Load += new System.EventHandler(this.CodeWindow_Load);
             this.codeContextStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,7 +37,7 @@ namespace OneCode.UserControls
             // 
             this.codeName.AutoSize = true;
             this.codeName.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.codeName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(42)))), ((int)(((byte)(158)))));
+            this.codeName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
             this.codeName.Location = new System.Drawing.Point(-4, 5);
             this.codeName.Name = "codeName";
             this.codeName.Size = new System.Drawing.Size(65, 15);

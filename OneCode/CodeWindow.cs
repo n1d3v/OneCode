@@ -118,7 +118,7 @@ namespace OneCode
 
             if (!File.Exists(xmlFile))
             {
-                MessageBox.Show($"File not found: {xmlFile}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                codeCount.Text = "You have 0 codes available.";
                 return;
             }
 
@@ -166,6 +166,26 @@ namespace OneCode
             {
                 AttachRightClickHandler(child, handler);
             }
+        }
+
+        private void CodeWindow_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.FormLocation == new Point(0, 0))
+            {
+                // Let Windows decide where it should be at first
+                this.StartPosition = FormStartPosition.WindowsDefaultLocation;
+            }
+            else
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                this.Location = Properties.Settings.Default.FormLocation;
+            }
+        }
+
+        private void CodeWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.FormLocation = this.Location;
+            Properties.Settings.Default.Save();
         }
     }
 }
