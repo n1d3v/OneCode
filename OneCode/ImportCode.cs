@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Linq;
 using OneCode.Classes;
 using System.IO;
 using ZXing;
@@ -87,14 +88,71 @@ namespace OneCode
             var reader = new BarcodeReader();
             var result = reader.Decode(screenshot);
 
-            if (result != null)
-            {
-                dataImportBox.Text = result.Text;
-                MessageBox.Show("QR code detected and imported successfully! Please restart the application to view the code.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
+            if (result == null)
             {
                 MessageBox.Show("No QR code was found on the screen, please put it in view and try scanning the QR code again.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string otpUri = result.Text;
+
+            try
+            {
+                var uri = new Uri(otpUri);
+                string type = uri.Host;
+
+                string label = Uri.UnescapeDataString(uri.AbsolutePath.TrimStart('/'));
+                string issuerLabel = "";
+                string accountName = "";
+
+                if (label.Contains(":"))
+                {
+                    var parts = label.Split(':');
+                    issuerLabel = parts[0];
+                    accountName = parts[1];
+                }
+                else { accountName = label; }
+
+                // Query parser for reading the OTP URLs
+                var queryParams = uri.Query.TrimStart('?')
+                    .Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Split('='))
+                    .ToDictionary(
+                        p => Uri.UnescapeDataString(p[0]),
+                        p => p.Length > 1 ? Uri.UnescapeDataString(p[1]) : ""
+                    );
+
+                string issuer = queryParams.ContainsKey("issuer") ? queryParams["issuer"] : null;
+                string secret = queryParams.ContainsKey("secret") ? queryParams["secret"] : null;
+
+                if (string.IsNullOrEmpty(secret))
+                    throw new Exception("Invalid QR: missing secret");
+
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OneCodeAccs.xml");
+
+                List<AccountData> accounts;
+                if (File.Exists(filePath))
+                {
+                    string existingXml = File.ReadAllText(filePath);
+                    accounts = DataParser.ParseXml(existingXml);
+                }
+                else { accounts = new List<AccountData>(); }
+
+                accounts.Add(new AccountData
+                {
+                    Issuer = issuer,
+                    Secret = secret,
+                    Name = accountName
+                });
+
+                // Write the new OTP code data into the XML file
+                string xmlData = DataParser.CreateXml(accounts);
+                File.WriteAllText(filePath, xmlData);
+
+                MessageBox.Show("QR code imported successfully! Please restart the application to view the code.", "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to parse QR code: " + ex.Message, "OneCode", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
